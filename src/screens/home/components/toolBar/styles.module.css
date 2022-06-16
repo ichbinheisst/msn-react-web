@@ -1,0 +1,11 @@
+ .container{
+    display: flex;
+    margin-top:4px;
+    flex-direction: row;
+     
+    justify-content: space-between;
+    margin-inline:10px;
+    padding-block: 5px;
+    background-image: linear-gradient(#0DC8FF,#0D94FF,#0c76cd,#0DC8FF );
+    box-shadow: 0.3px 0.4px 5px ;
+ }

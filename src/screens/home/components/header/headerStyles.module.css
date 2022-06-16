@@ -1,0 +1,80 @@
+ .container {
+    background-image: linear-gradient(#0DC8FF,#0D94FF,#400CE8,#0008FF );
+     padding: 10px;
+     color: #FFF;
+     font-size: 13px;
+     width: 100%;
+     
+
+ }
+
+ .boxIcon{
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 11pt;
+ }
+ .cicleIcon{
+    display:flex;
+    height: 18px;
+    width: 18px;
+    border-radius:100%;
+    background-color: #fff;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin-right: 5px;
+  
+ }
+ .NameBioBox{
+    display: flex;
+    align-items: center;
+ }
+
+.avatarContainer{
+    height: 60px;
+    width: 60px;
+    background-image: linear-gradient(#fff,#0D94FF,#fff,#0D94FF );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-right: 10px;
+    box-shadow: 0.2px 0.4px 2px #000 ;
+}
+.avatar{
+    height: 50px;
+    width: 50px;
+    border-style: solid;
+    border-width: 0.1px;
+}
+
+
+.newUserOnlineBox{
+   position:absolute;
+  
+   left:35vw;
+   animation: showUp 5s forwards ease-in-out;
+   
+
+}
+
+@keyframes showUp {
+    0%{
+        top:-50%
+    }
+    50%{
+      top:-9%
+
+    }
+    100%{
+      top:-50%
+  
+    }
+}
+
+/*
+animation: showUp 5s forwards ease-in-out;
+*/

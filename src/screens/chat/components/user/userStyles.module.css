@@ -1,0 +1,15 @@
+
+.pictureBox{
+    display: flex;
+    width: 120px;
+    height: 120px;
+    background-image: linear-gradient(#fff,#029F00 ,#fff,#029F00,#029F00  );
+    border-radius: 10%;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+    
+
+   
+
+}

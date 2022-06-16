@@ -1,0 +1,151 @@
+.container{
+   /*;*/
+    font-size: 12px;
+    width: 40vw;
+    max-width: 350px;
+    border-radius: 8px;
+    overflow:hidden;
+    
+
+    
+}   
+
+.headingChat{
+    display: flex;
+    flex-Direction: row;
+    box-shadow: 1px 1px 8px;
+      padding: 10px;
+    padding-bottom: 20px;
+   
+    align-items: center;
+    align-content: center;
+  
+    background-image: linear-gradient(#009FFF ,#009FFF ,#fff);
+    color:#fff;
+    margin-bottom: 10px;
+}
+.avatarContainer{
+    height: 45px;
+    width: 45px;
+    background-image: linear-gradient(#fff,#0D94FF,#fff,#0D94FF );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    margin-right: 10px;
+    box-shadow: 0.2px 0.4px 2px #000 ;
+}
+.avatar{
+    height: 40px;
+    width: 40px; 
+
+    
+}
+.chatMain{
+    display:flex;
+    flex-direction:column;
+    height:60vh;
+    overflow: auto;
+    flex-direction:column-reverse;
+    background-color: rgba(255, 255, 255, 0.73);
+  
+
+    
+   
+
+}
+
+.messsages{
+
+  
+ 
+   
+  
+
+
+}
+
+
+.chatFormIconBox{
+    display: flex;
+    flex-direction: row;
+    background-color: #fff;
+    align-self: center;
+    overflow: scroll;
+    cursor: pointer;
+    height: 50px;
+    width: 80%;
+    
+
+}
+
+.chatFormIconBox::-webkit-scrollbar {
+    width: 2px;
+    height: 10px;
+  } 
+
+
+  .chatFormIconBox::-webkit-scrollbar-thumb {
+    background: #009FFF;
+    border-radius: 3px;
+
+    width: 1px;
+  }
+
+  .chatFormIconBox::-webkit-scrollbar-track {
+
+    border-radius: 10px;
+  }
+
+
+ .chatFormIconEmojiBox{
+    font-size: 1.3rem;
+     padding-inline: 10px;
+     margin-inline: 2px;
+ }
+ 
+ .chatFormIconEmojiBox:hover{
+    font-size: 1.5rem;
+ }
+
+ .buzzButton{
+    margin-bottom: 10px;
+    border-style: none;
+    background-color: #FFBF00;
+    border-radius: 5px;
+    margin-left: 10px;
+
+ }
+
+ .buzzButton:hover{
+    animation: shakeUp 0.2s forwards;
+ }
+
+
+
+
+ @keyframes shakeUp {
+    10%{
+  
+      transform:translateX(3px)
+    }
+    
+
+    30%{
+        transform:translateX(-3px)
+    }
+    60%{
+        transform:translateX(3px)
+    }
+    90%{
+        transform:translateX(-3px)
+
+    }
+    100%{
+        transform:translateX(3px) scale(1.2)
+
+    }
+ }
+
+
+/*background-image: linear-gradient(#0D94FF,#fff,#fff,#fff,#fff);*/
