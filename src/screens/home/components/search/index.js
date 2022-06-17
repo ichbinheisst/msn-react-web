@@ -60,15 +60,19 @@ const contact = useSelector((state)=> state.searchNewContact )
 
     </div>
 
-   
-       <div style={{
-      display:"flex",
-       alignSelf:"center",
+   { contact.modal && 
+     <div style={{
+        display:"flex",
+        alignSelf:"center",
         alignItems:"center", 
-         width:"100vw",
-         justifyContent:"center"}}> 
+        width:"100vw",
+        justifyContent:"center"}}> 
         <ModalResult state = {contact.modal} user={contact.data} close={closeModal}/>
-    </div>
+        </div>
+
+
+   }
+       
   
  
    

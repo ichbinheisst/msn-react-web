@@ -95,7 +95,7 @@ const Home = () => {
     setSocket (() => {
       const userId = user.data._id;
       const authToken = token.data.token;
-      const socketIo = io ('http://localhost:4000', {
+      const socketIo = io ('https://msnbr.herokuapp.com/', {
         auth: {
           token: authToken,
           userId: userId,
