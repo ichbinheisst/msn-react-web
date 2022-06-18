@@ -32,3 +32,25 @@
     }
     
 }
+
+@media screen and (max-width: 740px) {
+   .chatContainer{
+      display: flex;
+      position: absolute;
+      opacity: 1;
+    
+      animation:openChats 1s  forwards;
+     border-style: solid;
+     border-radius: 12px;
+     border-width: 0.2px;
+     border-color:#0D94FF ;
+     padding: 0.1px;
+     align-items: center;
+     
+   
+     
+  
+  }
+   
+ }
+ 

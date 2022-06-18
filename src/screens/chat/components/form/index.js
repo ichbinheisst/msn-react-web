@@ -61,6 +61,7 @@ export default function ChatForm({
           display: 'flex',
           alignContent: 'center',
           height: '5vh',
+          minHeight:"50px",
           backgroundColor: '#0D94FF ',
           alignItems: 'center',
           paddingInline: '5px',
