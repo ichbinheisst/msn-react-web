@@ -17,7 +17,7 @@
     box-shadow: 1px 1px 8px;
       padding: 10px;
     padding-bottom: 20px;
-   
+    min-height: 60px;
     align-items: center;
     align-content: center;
   
@@ -149,17 +149,20 @@
 
     }
  }
-@media screen and (max-width: 845px) {
+@media screen and (max-width: 835px) {
     .container{
         /*;*/
          margin-left: 20vw;
       
        position:absolute;
+        
          height: 90vh;
-        bottom:-9vh;
-        right: -14%;
+        bottom:-3vh;
+        right: -34vw;
+   
       
         padding-bottom: 10px;
+      
         
         
          
@@ -172,7 +175,7 @@
      .chatMain{
         display:flex;
         flex-direction:column;
-        height:65vh;
+        height:60vh;
         overflow: auto;
         flex-direction:column-reverse;
         background-color:#fff
@@ -188,5 +191,28 @@
     
   }
   
+  @media screen and (max-width: 745px) {
+    .container{
+        /*;*/
+         margin-left: 20vw;
+      
+       position:absolute;
+        
+         height: 90vh;
+         bottom:-3vh;
+        right: -4vw;
+     
+      
+        padding-bottom: 10px;
+        
+        
+         
+
+         
+     
+         
+     }   
+    
+    }
 
 /*background-image: linear-gradient(#0D94FF,#fff,#fff,#fff,#fff);*/

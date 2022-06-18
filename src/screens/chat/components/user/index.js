@@ -7,7 +7,7 @@ const User = () => {
       style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start'}}
     >
       <div className={styles.pictureBox}>
-        <img src={Icon} alt="icon" style={{width: '90%', height: '90%'}} />
+        <img src={Icon} alt="icon" style={{width: '90%', height: '90%', }} />
       </div>
 
       <div style={{marginInline: '20px'}}>
