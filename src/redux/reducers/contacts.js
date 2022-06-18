@@ -32,7 +32,7 @@ const {
 export const getContacts = (token, userId) => async dispacth => {
   try {
     startfetchContacts ();
-    const response = await fetch ('http://localhost:4000/user/contacts', {
+    const response = await fetch ('https://msnbr.herokuapp.com/user/contacts', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
