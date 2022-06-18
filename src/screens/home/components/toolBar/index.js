@@ -3,7 +3,7 @@ import styles from './styles.module.css';
 import Icon from '../../../../assets/document.png';
 //import {AiOutlineMail, AiOutlineFolderOpen} from 'react-icons/ai';
 
-const icons = [1, 2, 3, 4, 5, 6];
+const icons = [1, 2, 3, 4];
 const icons2 = [1, 2];
 /*
 const iconLeft = [
@@ -48,7 +48,7 @@ const ToolBar = () => {
             <button
               key={index}
               style={{
-                marginInline: '10px',
+                marginInline: '5%',
                 border: 'none',
                 backgroundColor: 'transparent',
               }}
@@ -58,8 +58,9 @@ const ToolBar = () => {
                 alt="icon"
                 style={{
                   border: 'none',
-                  width: '20px',
-                  height: '20px',
+                  width: '6vw',
+                  maxWidth:"22px"
+                  
                 }}
               />
 

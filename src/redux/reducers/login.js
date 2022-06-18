@@ -77,7 +77,7 @@ export default slice.reducer;
 export const getToken = user => async dispatch => {
   try {
     dispatch (startTokenFetch ());
-    const response = await fetch ('https://msnbr.herokuapp.com/login', {
+    const response = await fetch ('http://localhost:4000/login', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -102,7 +102,7 @@ export const getUser = (token, userId) => async dispatch => {
 
   try {
     dispatch (startUserFetch ());
-    const response = await fetch ('https://msnbr.herokuapp.com/user', {
+    const response = await fetch ('http://localhost:4000/user', {
       method: 'POST',
       headers: {
         Accept: 'application/json',

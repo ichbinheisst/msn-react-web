@@ -95,7 +95,7 @@ const Home = () => {
     setSocket (() => {
       const userId = user.data._id;
       const authToken = token.data.token;
-      const socketIo = io ('https://msnbr.herokuapp.com/', {
+      const socketIo = io ('http://localhost:4000/', {
         auth: {
           token: authToken,
           userId: userId,
@@ -132,6 +132,8 @@ const Home = () => {
         if (response) {
           setMessage (response);
 
+           console.log('aqui esta o type :' + response.type)
+
           if (response.type === 'message' || response.type ==='picture') {
            
              
@@ -166,6 +168,7 @@ const Home = () => {
    if(message?.type==="alert"){
 
       let alertaudio= new Audio(alertAudio).play()
+      setMessages([...messages,message])
    }
   },[message])
 
@@ -184,7 +187,15 @@ const Home = () => {
     () => {
       
       if (messages.length && upDateContacts.length) {
+
+
+      
+
         const last = messages[messages.length - 1];
+         console.log("okay")  
+
+
+
        let discoverContactsIndex = upDateContacts.find ((el, index) => {
           if (el.email === last.email) {
             if(index >  0 ){
@@ -247,6 +258,7 @@ const Home = () => {
         unViewedMessages = {userWhosentMessage}
        setUnviewedMessaged= {setUserWhosentMessage}
        message={message}
+       messages={messages}
       />
     
   {openChat &&

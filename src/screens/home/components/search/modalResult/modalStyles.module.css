@@ -1,5 +1,5 @@
 .container{
-    width:30vw;
+    width:0vw;
     height:0vh;
      padding: 1.5%;
     position: absolute;
@@ -31,10 +31,26 @@
 }
 
 @keyframes showUp{
-    to {
+ 0%{
+    
+ }
+
+   50%{
+    opacity: 0.2;
+        height: 15vh;
+        max-width: 300px;
+        width: 10vw;
+        min-width: 200px;
+        height: 150px;
+
+   }
+
+    100% {
         opacity: 1;
         height: 15vh;
-        min-width: 300px;
+        max-width: 300px;
+        width: 10vw;
+        min-width: 200px;
         height: 150px;
         
     }

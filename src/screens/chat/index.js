@@ -50,7 +50,12 @@ const Chat = ({
   }, []);
 
   React.useEffect (
+
     () => {
+
+ 
+      console.log(messages[messages.length-1])
+
       // filter the message that belong the user to be displayed in each user
       if (messages) {
         let novo = messages.filter (el => {
@@ -60,6 +65,9 @@ const Chat = ({
         setFilterMessage (novo);
       }
       return () => {};
+
+
+
     },
     [messages, data]
   );
@@ -121,8 +129,7 @@ const Chat = ({
 
     socket.emit (
       'createMsg',
-      {
-        senderID: user._id,
+      {  senderID: user._id,
         sender: user.name,
         email: user.email,
         room: data.email,
@@ -130,6 +137,7 @@ const Chat = ({
         time: '22:00',
         type: 'alert',
       },
+      // 
       function (res) {
         console.log ('call attention');
         setMessage (res);

@@ -15,6 +15,7 @@ const ContactList = ({
   unViewedMessages,
   setUnviewedMessaged,
   message,
+  messages
 }) => {
   const dispatch = useDispatch ();
 
@@ -25,7 +26,10 @@ const ContactList = ({
       let check = unViewedMessages.some (unviewedMsg => {
         return unviewedMsg.email === email;
       });
+
+           
       return check;
+    
     }
 
     return false;
@@ -39,7 +43,7 @@ const ContactList = ({
   //const Contacts = useSelector (state => state.contacts.contacts.data);
   const [upDateContacts, setUpdateContacts] = React.useState ([]);
   const [lastUserTosendMessage, setlastUserTosendMessage] = React.useState (0);
-
+  const [colorItem,setColorItem ] = React.useState('')
   React.useEffect (
     () => {
       if (contacts) {
@@ -50,6 +54,13 @@ const ContactList = ({
   );
 
 
+  React.useEffect(()=>{
+
+ console.log('nova message')
+
+  },[unViewedMessages])
+
+ 
 
   function viewMessage (data) {
     if (unViewedMessages.length) {
@@ -59,6 +70,32 @@ const ContactList = ({
       });
     }
   }
+
+    function classifyMessage(email){
+      if(!messages.length){
+           return "transparent"
+            
+      }
+      let lastIndexMessage  = messages[messages.length-1] 
+       console.log(lastIndexMessage)
+
+         
+      
+         if(lastIndexMessage.type == 'alert' && lastIndexMessage.email ==email){
+           console.log('vermelho')
+
+          return"#FF3F00"
+
+         }
+         
+           console.log("blue")
+         return "#0D94FF"
+
+
+                 
+    }
+        console.log('message status: ' + message.type)
+
 
   return (
     <div style={{margin: 10}}>
@@ -77,7 +114,7 @@ const ContactList = ({
               className={styles.container}
               style={{
                 backgroundColor: checkNotViewedMessage (item.email)
-                  ?  message?.type ==="alert" && message.email ===item.email ? "#FF3F00":'#0D94FF'
+                  ? classifyMessage(item.email)
                   : 'transparent',
                 width: '100%',
                 color: checkNotViewedMessage (item.email) ? '#fff' : '#000',
