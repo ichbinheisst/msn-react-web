@@ -202,8 +202,9 @@ const Home = () => {
   function mobileMain(){
     if(isMobile  && openChat){
       return {
-        display:"none", 
-        width:"0vh"
+     
+        width:"0.1vw", 
+        height:"0vh"
 
       }
     }

@@ -6,6 +6,7 @@ import ChatForm from './components/form';
 import messageAudio from '../../assets/audios/MS.mp3';
 import alertAudio from '../../assets/audios/aten.mp3';
 import NewUserOnlineAudio from '../../assets/audios/new.mp3';
+import { useSpring,animated } from 'react-spring';
 const Chat = ({
   data,
   messages,
@@ -24,7 +25,7 @@ const Chat = ({
   const [messageInput, setMessageInput] = React.useState ('');
   const [filterMessage, setFilterMessage] = React.useState ([]);
   const [UserStatus, setUserStatus] = React.useState ();
-
+  const [animating,setAnimating] = React.useState(false)
   function Typing (status) {
     socket.emit ('typing', {
       room: data.email,
@@ -44,6 +45,35 @@ const Chat = ({
       });
     }
   }
+
+  React.useEffect(()=>{
+    if(messages.length && messages[messages.length-1].type =="alert" &&messages[messages.length-1].email == data.email ){
+     setAnimating(true)
+      setTimeout(()=>{
+      setAnimating(false)
+      },2000)
+    } 
+   
+ 
+  },[messages])
+
+  const styling = useSpring({
+    config: { duration: 50 },
+    to: [
+      { marginLeft:"5px"},
+      { marginLeft:"-5px"},
+      { marginLeft:"5px"},
+      { marginLeft:"-5px", }, 
+      { marginLeft:"5px" ,opacity:0.5},
+      { marginLeft:"5px",opacity:0.5 },
+      { marginLeft:"-5px",opacity:1 },
+      { marginLeft:"5px",opacity:0.5 },
+      { marginLeft:"-5px",opacity:1 }, 
+      { marginLeft:"5px" ,},
+      { marginLeft:"5px",}
+    ],
+    from: {marginLeft:"5px"},
+  })
 
   React.useEffect (() => {
     viewMessage ();
@@ -150,6 +180,7 @@ const Chat = ({
     <div className={styles.container}>
 
       <header className={styles.headingChat}>
+      <animated.div style={animating? styling:{}}>
         <div className={styles.avatarContainer}>
           <img
             src={data.thumbnail ? data.thumbnail : picture}
@@ -158,6 +189,7 @@ const Chat = ({
             style={{opacity: !UserStatus ? '0.4' : '1'}}
           />
         </div>
+        </animated.div>
 
         <div>
           {data.name} {window.screen.width}
@@ -204,7 +236,7 @@ const Chat = ({
                   margin: '5px',
                   alignSelf: 'flex-end',
                   fontFamily: 'cursive',
-                  fontSize: '11pt',
+                  fontSize: '16px',
                 }}
               >
                 <b
