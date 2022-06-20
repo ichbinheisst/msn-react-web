@@ -6,8 +6,13 @@ app.use(
         resolve(__dirname,'./build')
     )
 )
+ app.get("/home", (req,res)=>{
+    res.redirect("/")
+ })
 
-
+ app.get("/login", (req,res)=>{
+    res.redirect("/")
+ })
 app.listen(process.env.PORT ||4000,(err)=>{
      if(err){
         console.log("fail")
