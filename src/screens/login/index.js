@@ -103,7 +103,8 @@ const navigate =useNavigate();
           <br />
           Windows live <b> Messenger </b>
         </div>
-        <div style={{display: 'flex', alignItems: 'flex-start'}}>
+
+        <div className={styles.containerMother}>
           <div className={styles.imgcontainer}>
             <img src={avatar} alt="Avatar" className={styles.imgAvatar} />
           </div>
@@ -117,6 +118,7 @@ const navigate =useNavigate();
               onChange={(event)=> setUserName(event.target.value) }
             />
             <input
+            
               type="password"
               placeholder="Senha"
               name="psw"
@@ -181,7 +183,7 @@ const navigate =useNavigate();
         </div>
         <div className={styles.BoxButton}>
           <button className={styles.Button} onClick={(event)=> handleLogin(event)}>Entrar</button>
-          <button className={styles.Button}>Cancel</button>
+         
         </div>
         <span className="psw">
           {' '}Não possui um Windows Live ID? <a href="#">Inscreva-se</a>

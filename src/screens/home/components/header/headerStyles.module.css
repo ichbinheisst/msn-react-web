@@ -54,9 +54,8 @@
 
 .newUserOnlineBox{
    position:absolute;
-  
-   left:35vw;
    animation: showUp 5s forwards ease-in-out;
+   align-self: center;
    
 
 }

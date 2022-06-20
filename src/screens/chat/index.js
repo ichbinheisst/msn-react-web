@@ -160,7 +160,7 @@ const Chat = ({
         </div>
 
         <div>
-          {data.name}
+          {data.name} {window.screen.width}
           <br />
           {data.email}
         </div>

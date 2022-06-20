@@ -1,15 +1,16 @@
 .container{
     display: flex;
     flex-direction: row;
-    font-size: 12px;
+    font-size: 0.8rem;
     align-Items: center;
     align-Content: center;
     margin-top: 5px;
     padding: 5px;
     font-family: cursive;
-    font-weight: bold;
+  
     height: 20px;
-    overflow-y: 'scroll',
+    overflow-y: 'scroll';
+    padding-block: 8px;
     
     
     

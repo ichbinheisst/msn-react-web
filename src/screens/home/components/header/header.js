@@ -88,7 +88,7 @@ React.useEffect(()=>{
     <header className={styles.container}>
        {
         newUserOnlineModal && 
-           <div className={styles.newUserOnlineBox}> 
+           <div className={styles.newUserOnlineBox} style={{left: window.screen.width < 1100 ? "1vw":"40vw"}}> 
             <CardUserOnline data={newUser} />
            </div>
         }
