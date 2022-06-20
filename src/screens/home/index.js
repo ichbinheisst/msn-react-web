@@ -204,7 +204,8 @@ const Home = () => {
       return {
      
         width:"0.1vw", 
-        height:"0vh"
+        height:"0vh", 
+        display:"none"
 
       }
     }
