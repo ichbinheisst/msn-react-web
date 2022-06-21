@@ -101,7 +101,7 @@ const navigate =useNavigate();
         <div className={styles.TitleContainer}>
           Entrar no
           <br />
-          Windows live <b> Messenger </b>
+          Janela live <b> Messenger </b>
         </div>
 
         <div className={styles.containerMother}>
@@ -129,6 +129,8 @@ const navigate =useNavigate();
             <div className={styles.box}>
               <span className={styles.psw} style={{padding: '10%'}}>
                 {' '}<a href="#">Esqueceu a senha</a>
+                <br/>
+                    Esse site ė apenas nao pertece a Microsoft é apenas uma homenagem 
               </span>
               <div>
                 <label htmlFor="status">

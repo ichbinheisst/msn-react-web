@@ -267,6 +267,7 @@ const Home = () => {
             setUnviewedMessaged={setUserWhosentMessage}
             message={message}
             messages={messages}
+            Mobile={isMobile}
           />
         </div>
 }
@@ -282,18 +283,9 @@ const Home = () => {
           <div
             style={{
               position: "relative",
-              width: setMobileVersion()? "100vw":"33vw",
+              width: setMobileVersion()? "100vw":"30vw",
               backgroundColor:"#fff", 
-             
-              marginRight:isMobile?"0": "1%"
-              
-
-            
-             
-          
-              
-         
-           
+              marginRight:isMobile?"0": "1%" 
             }}
           >
         

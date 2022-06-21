@@ -61,6 +61,13 @@ const slice = createSlice ({
       state.user.data = null;
       state.user.error = action.payload;
     },
+    logout(state){
+       state.token.loading=false;
+       state.token.data.token = null
+       state.token.data.userId=null;
+       state.user.data = null
+       
+    }
   },
 });
 export const {
@@ -70,6 +77,7 @@ export const {
   startUserFetch,
   sucessUserFetch,
   errorUserFetch,
+  logout
 } = slice.actions;
 
 export default slice.reducer;

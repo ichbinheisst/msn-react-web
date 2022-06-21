@@ -235,8 +235,8 @@ const Chat = ({
 
                   margin: '5px',
                   alignSelf: 'flex-end',
-                  fontFamily: 'cursive',
-                  fontSize: '16px',
+                 
+                  fontSize: '17px',
                 }}
               >
                 <b

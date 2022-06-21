@@ -15,7 +15,8 @@ const ContactList = ({
   unViewedMessages,
   setUnviewedMessaged,
   message,
-  messages
+  messages,
+  Mobile
 }) => {
   const dispatch = useDispatch ();
 
@@ -108,6 +109,7 @@ const ContactList = ({
             onClick={() => {
               viewMessage (item);
               handleChat (item);
+
             }}
           >
             <div
@@ -118,6 +120,7 @@ const ContactList = ({
                   : 'transparent',
                 width: '100%',
                 color: checkNotViewedMessage (item.email) ? '#fff' : '#000',
+                fontSize:Mobile? "24px":"15px"
               }}
             >
 
