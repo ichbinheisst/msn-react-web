@@ -195,7 +195,7 @@ const Chat = ({
         </animated.div>
 
         <div>
-          {data.name} 
+          {data.name} - teste 
           <br />
           {data.email}
         </div>
