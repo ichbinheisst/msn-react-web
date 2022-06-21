@@ -84,7 +84,7 @@ const Chat = ({
     () => {
 
  
-      console.log(messages[messages.length-1])
+ 
 
       // filter the message that belong the user to be displayed in each user
       if (messages) {
@@ -175,6 +175,9 @@ const Chat = ({
     );
   }
 
+
+
+   console.log(message)
   //	😀
   return (
     <div className={styles.container}>
@@ -192,7 +195,7 @@ const Chat = ({
         </animated.div>
 
         <div>
-          {data.name} {window.screen.width}
+          {data.name} 
           <br />
           {data.email}
         </div>
@@ -208,6 +211,7 @@ const Chat = ({
             backgroundColor: '#FF3F00',
             color: '#fff',
             borderRadius: '20%',
+         
           }}
         >
 
@@ -228,20 +232,24 @@ const Chat = ({
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
-
-                  maxWidth: '190px',
-                  padding: 5,
-                  borderRadius: '8px',
+                  
+                  backgroundColor: user.email == element.email ?"#009FFF":"#fff",
+                  maxWidth: '130px',
+                  padding: "5px",
+                  
+                  borderRadius: '13px',
 
                   margin: '5px',
                   alignSelf: 'flex-end',
+                  marginLeft:user.email == element.email? "0px":"60%",
                  
-                  fontSize: '17px',
+                  fontSize: '14px',
+                
                 }}
               >
                 <b
                   style={{
-                    color: element.sender === user.name ? '#0D94FF' : 'purple',
+                    color: element.sender === user.name ? '#fff' : 'purple',
                   }}
                 >
                   {element.sender} diz:

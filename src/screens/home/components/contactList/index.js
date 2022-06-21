@@ -120,7 +120,7 @@ const ContactList = ({
                   : 'transparent',
                 width: '100%',
                 color: checkNotViewedMessage (item.email) ? '#fff' : '#000',
-                fontSize:Mobile? "24px":"15px"
+                fontSize:Mobile? "18px":"15px"
               }}
             >
 

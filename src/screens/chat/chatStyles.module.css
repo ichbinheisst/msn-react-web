@@ -62,7 +62,8 @@
 
 .messsages{
 
-  
+   display: flex;
+   flex-direction: column;
  
    
   
