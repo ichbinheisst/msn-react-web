@@ -234,7 +234,7 @@ const Chat = ({
                   flexDirection: 'column',
                   
                   backgroundColor: user.email == element.email ?"#009FFF":"#fff",
-                  maxWidth: '130px',
+                  maxWidth: '50%',
                   padding: "5px",
                   
                   borderRadius: '13px',
