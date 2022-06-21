@@ -241,8 +241,8 @@ const Chat = ({
 
                   margin: '5px',
                   alignSelf: 'flex-end',
-                  marginLeft:user.email == element.email? "0px":"60%",
-                 
+                  marginLeft:user.email == element.email? "0px":"50%",
+                  paddingLeft:"16px",
                   fontSize: '14px',
                 
                 }}

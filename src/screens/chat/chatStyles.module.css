@@ -47,10 +47,11 @@
 .chatMain{
     display:flex;
     flex-direction:column;
-    height:109vh;
+    height:74vh;
     overflow: auto;
     flex-direction:column-reverse;
     background-image: url(../../assets/backChat.jpeg);
+    
     
     
   
