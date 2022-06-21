@@ -222,40 +222,47 @@ const Chat = ({
 
       <div className={styles.chatMain}>
 
-        <div className={styles.messages}>
+        <div className={styles.messages} style={{width:"100%"}}>
           {JSON.parse (
             JSON.stringify (filterMessage)
           ).map ((element, index) => {
             return (
               <div
+              className={styles.msg}
                 key={index}
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
                   
                   backgroundColor: user.email == element.email ?"#009FFF":"#fff",
-                  maxWidth: '50%',
-                  padding: "5px",
                   
-                  borderRadius: '13px',
+                  padding: "8px",
+                  
+                  borderRadius: '10px',
 
                   margin: '5px',
                   alignSelf: 'flex-end',
                   marginLeft:user.email == element.email? "0px":"50%",
                   paddingLeft:"16px",
                   fontSize: '14px',
+
                 
                 }}
               >
                 <b
                   style={{
-                    color: element.sender === user.name ? '#fff' : 'purple',
+                    color: element.sender === user.name ? '#fff' : '#009FFF',
                   }}
                 >
                   {element.sender} diz:
                 </b>
 
-                {element.message}
+
+
+                <div style={{paddingBlock:"3px", color: element.sender === user.name ? '#fff' : '#009FFF'}}> 
+      {element.message}
+                    </div>
+            
               </div>
             );
           })}

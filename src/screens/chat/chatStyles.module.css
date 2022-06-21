@@ -72,7 +72,9 @@
 
 }
 
-
+.msg{
+  max-width: fit-content;
+}
 .chatFormIconBox{
     display: flex;
     flex-direction: row;
