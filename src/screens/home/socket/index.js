@@ -16,7 +16,7 @@ export function connectSocket(
     setSocket(() => {
       const userId = user.data._id;
       const authToken = token.data.token;
-      const socketIo = io("http://localhost:4444", {
+      const socketIo = io("https://msnbr.herokuapp.com/", {
         auth: {
           token: authToken,
           userId: userId,
