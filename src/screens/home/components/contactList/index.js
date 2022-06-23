@@ -1,10 +1,10 @@
-import React from 'react';
-import userIcon from '../../../../assets/greenAvatar.png';
-import userOffline from '../../../../assets/avatarOffline.png';
-import starIcon from '../../../../assets/star.png';
-import styles from './contacts.module.css';
-import {useDispatch, useSelector} from 'react-redux';
-import {getContacts} from '../../../../redux/reducers/contacts';
+import React from "react";
+import userIcon from "../../../../assets/greenAvatar.png";
+import userOffline from "../../../../assets/avatarOffline.png";
+import starIcon from "../../../../assets/star.png";
+import styles from "./contacts.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getContacts } from "../../../../redux/reducers/contacts";
 
 const ContactList = ({
   title,
@@ -16,21 +16,19 @@ const ContactList = ({
   setUnviewedMessaged,
   message,
   messages,
-  Mobile
+  Mobile,
 }) => {
-  const dispatch = useDispatch ();
+  const dispatch = useDispatch();
 
-  const {token, user} = useSelector (state => state.login);
+  const { token, user } = useSelector((state) => state.login);
 
-  function checkNotViewedMessage (email) {
+  function checkNotViewedMessage(email) {
     if (unViewedMessages.length) {
-      let check = unViewedMessages.some (unviewedMsg => {
+      let check = unViewedMessages.some((unviewedMsg) => {
         return unviewedMsg.email === email;
       });
 
-           
       return check;
-    
     }
 
     return false;
@@ -42,102 +40,98 @@ const ContactList = ({
   }, []);
 */
   //const Contacts = useSelector (state => state.contacts.contacts.data);
-  const [upDateContacts, setUpdateContacts] = React.useState ([]);
-  const [lastUserTosendMessage, setlastUserTosendMessage] = React.useState (0);
-  const [colorItem,setColorItem ] = React.useState('')
-  React.useEffect (
-    () => {
-      if (contacts) {
-        setUpdateContacts ([...contacts]);
-      }
-    },
-    [contacts]
-  );
+  const [upDateContacts, setUpdateContacts] = React.useState([]);
+  const [lastUserTosendMessage, setlastUserTosendMessage] = React.useState(0);
+  const [colorItem, setColorItem] = React.useState("");
+  React.useEffect(() => {
+    if (contacts) {
+      setUpdateContacts([...contacts]);
+    }
+  }, [contacts]);
 
+  React.useEffect(() => {
+    console.log("nova message");
+  }, [unViewedMessages]);
 
-  React.useEffect(()=>{
-
- console.log('nova message')
-
-  },[unViewedMessages])
-
- 
-
-  function viewMessage (data) {
+  function viewMessage(data) {
     if (unViewedMessages.length) {
-      setUnviewedMessaged (() => {
-        let newList = unViewedMessages.filter (el => el.email !== data.email);
+      setUnviewedMessaged(() => {
+        let newList = unViewedMessages.filter((el) => el.email !== data.email);
         return newList;
       });
     }
   }
 
-    function classifyMessage(email){
-      if(!messages.length){
-           return "transparent"
-            
-      }
-      let lastIndexMessage  = messages[messages.length-1] 
-       console.log(lastIndexMessage)
-
-         
-      
-         if(lastIndexMessage.type == 'alert' && lastIndexMessage.email ==email){
-           console.log('vermelho')
-
-          return"#FF3F00"
-
-         }
-         
-           console.log("blue")
-         return "#0D94FF"
-
-
-                 
+  function classifyMessage(email) {
+    if (!messages.length) {
+      return "transparent";
     }
-        console.log('message status: ' + message.type)
+    let lastIndexMessage = messages[messages.length - 1];
+    console.log(lastIndexMessage);
+
+    if (lastIndexMessage.type == "alert" && lastIndexMessage.email == email) {
+      console.log("vermelho");
+
+      return "#FF3F00";
+    }
+
+    console.log("blue");
+    return "#0D94FF";
+  }
+  console.log(contacts);
+
+
+
 
 
   return (
-    <div style={{margin: 10}}>
-      <h5> {title}{`(${contacts.length})`} </h5>
-      {contacts.map ((item, index) => {
+    <div style={{ margin: 10 }}>
+      <h5>
+        {" "}
+        {title}
+        {`(${contacts.length})`}{" "}
+      </h5>
+      {contacts.map((item, index) => {
         return (
           <div
             key={index}
             className={styles.container}
+            style={{ paddingBlock:"15px", marginTop:"10px"}}
             onClick={() => {
-              viewMessage (item);
-              handleChat (item);
-
+              viewMessage(item);
+              handleChat(item);
             }}
           >
             <div
               className={styles.container}
               style={{
-                backgroundColor: checkNotViewedMessage (item.email)
+                backgroundColor: checkNotViewedMessage(item.email)
                   ? classifyMessage(item.email)
-                  : 'transparent',
-                width: '100%',
-                color: checkNotViewedMessage (item.email) ? '#fff' : '#000',
-                fontSize:Mobile? "18px":"15px"
+                  : "transparent",
+                width: "100%",
+                color: checkNotViewedMessage(item.email) ? "#fff" : "#000",
+                fontSize: Mobile ? "18px" : "14px",
+                display:"flex", 
+                alignItems:"center", 
+                alignContent:"center", 
+            
+                paddingBlock:"15px"
+               
               }}
             >
+              <div className={styles.iconbox}>
+                <img
+                  src={item?.thumbnail?item.thumbnail:userIcon }
+                  alt="user"
+                  className={styles.iconUser}
+                />
+              </div>
 
-              {index % 2 === 0 &&
-                <img src={starIcon} alt="start" className={styles.iconStar} />}
-
-              <img
-                src={status ? userIcon : userOffline}
-                alt="user"
-                className={styles.iconUser}
-              />
               {item.email}
             </div>
           </div>
         );
       })}
-
     </div>
   );
 };

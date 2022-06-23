@@ -2,11 +2,11 @@
    /*;*/
     font-size: 12px;
     margin-left: 1px;
-   
+    opacity: 0;
+ 
   
-     
-
     overflow:hidden;
+    animation: showUp 1s ease-in-out forwards;
    
     
 
@@ -19,7 +19,7 @@
     box-shadow: 1px 1px 8px;
       padding: 10px;
     padding-bottom: 20px;
-    min-height: 8vh;
+    min-height: 2vh;
     align-items: center;
     align-content: center;
   
@@ -51,15 +51,29 @@
     overflow: auto;
     flex-direction:column-reverse;
     background-image: url(../../assets/backChat.jpeg);
-    
-    
-    
-  
-
-    
-   
+      
 
 }
+
+
+
+.chatMainDeskTop {
+  display:flex;
+  flex-direction:column;
+  height:52vh;
+  overflow: auto;
+  flex-direction:column-reverse;
+  background-image: url(../../assets/backChat.jpeg);
+  
+  
+  
+
+
+  
+ 
+
+}
+
 
 .messsages{
 
@@ -130,7 +144,11 @@
     animation: shakeUp 0.2s forwards;
  }
 
- 
+@keyframes showUp {
+  to {
+    opacity:1
+  }
+} 
   
  
 

@@ -1,7 +1,23 @@
 import React from 'react';
 import styles  from './modalStyles.module.css'
 import avatar from '../../../../../assets/avatar.jpeg'
- export default function ModalResult({state, user, close}){
+ export default function ModalResult({state, user, close, sendContactRequest,Mydata}){
+
+ console.log(user)
+/*
+function sendContactRequest(data){
+  const { email,senderID,senderEmail,senderPicture,senderToken} = data
+  Socket.emit("notification",data,(res)=>{
+      console.log("messages has been sent sucessfully")
+  })
+ }
+
+
+
+
+
+  */
+
     return (
         
         <div className={ state ?  styles.container: styles.off}> 
@@ -37,7 +53,29 @@ import avatar from '../../../../../assets/avatar.jpeg'
                    </div>
             </div>
         </div>
-        <button style={{alignSelf:'flex-end'}}> 
+        <button style={{alignSelf:'flex-end'}}
+        onClick={()=> {
+            let data = {
+
+                email:user?.email,
+                requestId:user._id,
+                senderID:Mydata._id,
+                senderEmail:Mydata.email, 
+                senderPicture:Mydata.thumb, 
+                senderToken:"123", 
+                type:"request_contact"
+            }
+                  sendContactRequest(data)
+        }
+             
+            
+      
+        
+        
+        }
+        
+        
+        > 
          enviar convite
         </button>
         </div>

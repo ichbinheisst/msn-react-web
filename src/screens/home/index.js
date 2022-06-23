@@ -11,6 +11,9 @@ import CardUserOnline from "../userAlertCard/cardUserOnline";
 import messageAudio from "../../assets/audios/MS.mp3";
 import alertAudio from "../../assets/audios/aten.mp3";
 import styles from "./home.module.css";
+import { connectSocket } from "./socket";
+import { UpdateOrderContacts } from "./updateContactOrder";
+import { OpenConnnectionNGetMessage } from "../../redux/reducers/socket";
 const Home = () => {
   const [openChat, setOpenChat] = React.useState(false);
   const [chatwith, setChatWith] = React.useState({});
@@ -25,25 +28,21 @@ const Home = () => {
   const UserContacts = useSelector((state) => state.contacts.data);
   const [userWhosentMessage, setUserWhosentMessage] = React.useState([]);
   const [newUserOnline, setNewUserOnline] = React.useState();
- const [isMobile,setMobile] = React.useState(false)
+  const [isMobile, setMobile] = React.useState(false);
 
-
- React.useEffect(()=>{
- if(window.screen.width < 600){
-    setMobile(true)
- }else{
-  setMobile(false)
- }
- },[handleChat])
- 
+  React.useEffect(() => {
+    if (window.screen.width < 600) {
+      setMobile(true);
+    } else {
+      setMobile(false);
+    }
+  }, [handleChat]);
 
   let audio = new Audio(messageAudio);
 
   React.useEffect(() => {
     if (token.data.token) {
-      console.log(token.data.userId);
       dispatch(getContacts(token.data.token, token.data.userId));
-      console.log(token.data);
     }
 
     // console.log(token.data)
@@ -53,81 +52,29 @@ const Home = () => {
 
   React.useEffect(() => {
     setTimeout(() => {
-      setNewModalUser(true);
+      // setNewModalUser(true);
     }, 1000);
   }, []);
 
-  function closeUserModal() {
-    setNewModalUser(false);
-  }
-
   React.useEffect(() => {
-    if (Array.isArray(UserContacts) && UserContacts.length) {
-      setUpdateContacts([...UserContacts]);
-    }
-  }, [UserContacts]);
-
-  React.useEffect(() => {
-    if (!Array.isArray(UserContacts) || !UserContacts.length) {
-      console.log("loading");
-    } else {
-      setSocket(() => {
-        const userId = user.data._id;
-        const authToken = token.data.token;
-        const socketIo = io("https://msnbr.herokuapp.com", {
-          auth: {
-            token: authToken,
-            userId: userId,
-          },
-        });
-        socketIo.on("connect", () => {
-          console.log("socket is ready");
-        });
-
-        const Contacts = UserContacts.map((element) => element.email);
-
-        socketIo.emit(
-          "enroll",
-          {
-            id: user.data._id,
-            email: user.data.email,
-            token: authToken,
-            contacts: Contacts,
-          },
-          () => {}
-        );
-
-        socketIo.on("messageReceivedOffline", (data, callback) => {
-          setMessages([...messages, ...data]);
-          callback();
-        });
-        socketIo.on("typing" + user.data.email, (params) => {
-          setTyping(params.params);
-        });
-        socketIo.on(user.data.email, (response) => {
-          if (response) {
-            setMessage(response);
-
-            console.log("aqui esta o type :" + response.type);
-
-            if (response.type === "message" || response.type === "picture") {
-            }
-          }
-        });
-
-        socketIo.on("userIsOnline:" + user.data.email, (params) => {
-          setNewUserOnline(params);
-        });
-
-        return socketIo;
-      });
-    }
+    // dispatch(OpenConnnectionNGetMessage(io, token.data.userId,token.data.token))
+    connectSocket(
+      io,
+      setSocket,
+      user,
+      token,
+      UserContacts,
+      setMessages,
+      messages,
+      setTyping,
+      setMessage,
+      setNewUserOnline
+    );
   }, [UserContacts]);
 
   React.useEffect(() => {
     if (message?.type === "message") {
       audio.play();
-
       setMessages([...messages, message]);
     }
 
@@ -144,36 +91,18 @@ const Home = () => {
   }, [UserContacts]);
 
   React.useEffect(() => {
-    if (messages.length && upDateContacts.length) {
-      const last = messages[messages.length - 1];
-      console.log("okay");
-
-      let discoverContactsIndex = upDateContacts.find((el, index) => {
-        if (el.email === last.email) {
-          if (index > 0) {
-            setUpdateContacts(() => {
-              let copy = JSON.parse(JSON.stringify(upDateContacts));
-              copy.splice(0, 0, copy.splice(index, 1)[0]);
-
-              return copy;
-            });
-          }
-        }
-
-        return el.email === last.email;
-      });
-      if (discoverContactsIndex !== undefined) {
-        setUserWhosentMessage([...userWhosentMessage, discoverContactsIndex]);
-      }
-    }
+    UpdateOrderContacts(
+      messages,
+      upDateContacts,
+      setUpdateContacts,
+      setUserWhosentMessage,
+      userWhosentMessage
+    );
   }, [messages]);
 
   function handleChat(data) {
     setOpenChat(true);
     setChatWith(data);
-    
-
-
   }
 
   function closeChat() {
@@ -184,111 +113,112 @@ const Home = () => {
     setMessages([...messages, msg]);
   }
 
-  function setMobileVersion(){
-    if(!openChat){
-        return  false
+  function setMobileVersion() {
+    if (!openChat) {
+      return false;
     }
-     if(openChat && isMobile ){
-      return true
-     }
-     if(openChat && !isMobile)
-      return false
-
-
+    if (openChat && isMobile) {
+      return true;
+    }
+    if (openChat && !isMobile) return false;
   }
 
-
-
-  function mobileMain(){
-    if(isMobile  && openChat){
+  function mobileMain() {
+    if (isMobile && openChat) {
       return {
-     
-        width:"0.1vw", 
-        height:"0vh", 
-        display:"none"
-
-      }
+        width: "0.1vw",
+        height: "0vh",
+        display: "none",
+      };
     }
 
-    if(!isMobile && openChat){
+    if (!isMobile && openChat) {
       return {
-        display:"show", 
-        width:"65vw",
-        marginRight:"1%"
-      }
+        display: "show",
+        width: "100vw",
+        marginRight: "1%",
+      };
     }
-       
-     if(isMobile && !openChat){
-        return {
-    
-          width:"100vh",
-         
-          
-        }
-     }
-     
-     if(!isMobile && !openChat){
+
+    if (isMobile && !openChat) {
       return {
-        display:"show", 
-        width:"100vw", 
+        width: "100vh",
+      };
+    }
+
+    if (!isMobile && !openChat) {
+      return {
+        display: "show",
+        width: "100vw",
+      };
+    }
+  }
+
+  function ChatMobileDesk(isMobile) {
+    if (isMobile) {
+      return {
+        position: "relative",
+        width: setMobileVersion() ? "100vw" : "30vw",
+   
+        marginRight: isMobile ? "0" : "1%",
+      
        
         
-      }
-     }
+      };
+    }
+    return {
+      position: "absolute",
+      width: setMobileVersion() ? "100vw" : "360px",
+  
+      marginRight: isMobile ? "0" : "1%",
+      right: "5vw",
+      bottom:0, 
+      borderRadius:"8px"
+    };
   }
 
+  function sendContactRequest(data) {
+    console.log("send notification");
+
+    // const { email,sendID,senderEmail,senderPicture,senderToken} = data
+    Socket.emit("notification_client_to_server", data, function (res) {
+      console.log("messages has been sent sucessfully");
+    });
+  }
 
   //1F600	😀
   return (
     <div>
-
-      <div style={{ width: "100vw", display: "flex",}}>
+      <div style={{ width: "100vw", display: "flex" }}>
         {
-        
-        
-         <div style={{...mobileMain()}}>
-       
-      <Header
-        user={user.data}
-        newUserOnline={newUserOnline}
-        contacts={UserContacts}
-        message={message}
-      />
+          <div style={{ ...mobileMain() }}>
+            <Header
+              user={user.data}
+              newUserOnline={newUserOnline}
+              contacts={UserContacts}
+              message={message}
+              sendContactRequest={sendContactRequest}
+            />
 
-          <ToolBar />
-          <SearchBar />
-          <ContactList
-            title={"Conectados"}
-            status={true}
-            auth={token.data}
-            handleChat={handleChat}
-            contacts={upDateContacts}
-            unViewedMessages={userWhosentMessage}
-            setUnviewedMessaged={setUserWhosentMessage}
-            message={message}
-            messages={messages}
-            Mobile={isMobile}
-          />
-        </div>
-}
-
-
-
-
-
-
-
+            <ToolBar />
+            <SearchBar sendContactRequest={sendContactRequest} />
+            <ContactList
+              title={"Conectados"}
+              status={true}
+              auth={token.data}
+              handleChat={handleChat}
+              contacts={upDateContacts}
+              unViewedMessages={userWhosentMessage}
+              setUnviewedMessaged={setUserWhosentMessage}
+              message={message}
+              messages={messages}
+              Mobile={isMobile}
+            />
+          </div>
+        }
 
         {openChat && (
-          <div
-            style={{
-              position: "relative",
-              width: setMobileVersion()? "100vw":"30vw",
-              backgroundColor:"#fff", 
-              marginRight:isMobile?"0": "1%" 
-            }}
-          >
-        
+          <div style={ChatMobileDesk(isMobile)}>
             <Chat
               socket={Socket}
               data={chatwith}
@@ -301,6 +231,7 @@ const Home = () => {
               newUserOnline={newUserOnline}
               unViewedMessages={userWhosentMessage}
               setUnviewedMessaged={setUserWhosentMessage}
+              isMobile={isMobile}
             />
           </div>
         )}

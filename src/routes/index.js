@@ -4,6 +4,7 @@ import Login from '../screens/login/index.js';
 import Home from '../screens/home/index.js';
 import Notfound from '../screens/notFound/index.js';
 import Preload from '../screens/preload/index.js';
+import Notification from '../screens/notification/index.js';
 import {useSelector} from 'react-redux';
 
 const Routers = () => {
@@ -17,6 +18,7 @@ const Routers = () => {
         <Route path="/" element={<Preload />} />
         {user && <Route path="/home" element={<Home />} />}
         <Route path="/login" element={<Login />} />
+        <Route path="/notification" element={<Notification />} />
         <Route path="*" element={<Notfound />} />
       </Routes>
     </BrowserRouter>

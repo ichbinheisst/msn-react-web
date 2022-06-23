@@ -7,7 +7,7 @@ import CardUserOnline from "../../../userAlertCard/cardUserOnline";
 import OnlineAudio from "../../../../assets/audios/new.mp3";
 import { useNavigate } from "react-router-dom";
 
-const Header = ({ user, newUserOnline, contacts, message }) => {
+const Header = ({ user, newUserOnline, contacts, message, sendContactRequest }) => {
   const [newUserOnlineModal, setNewUserOnlineModal] = React.useState(false);
   const [newUser, setNewUser] = React.useState();
   const [animating, setAnimating] = React.useState(false);

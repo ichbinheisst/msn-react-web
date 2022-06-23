@@ -18,6 +18,7 @@ const Chat = ({
   newUserOnline,
   unViewedMessages,
   setUnviewedMessaged,
+  isMobile
 }) => {
   const header = ['Fotos', 'Arquivos', 'videos', 'chamadas'];
   const test = [1, 2, 3, 4, 5];
@@ -175,12 +176,9 @@ const Chat = ({
     );
   }
 
-
-
-   console.log(message)
   //	😀
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={{borderRadius:isMobile?"0px":"8px"}}>
 
       <header className={styles.headingChat}>
       <animated.div style={animating? styling:{}}>
@@ -220,7 +218,7 @@ const Chat = ({
 
       </header>
 
-      <div className={styles.chatMain}>
+      <div className={  isMobile? styles.chatMain:styles.chatMainDeskTop}>
 
         <div className={styles.messages} style={{width:"100%"}}>
           {JSON.parse (

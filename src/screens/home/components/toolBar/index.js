@@ -67,10 +67,15 @@ const ToolBar = () => {
   console.log("test running")
  }
 
+ function NavigateToNotification(){
+    navigate("/notification")
+
+ }
+
   const icon2= [
     {
       name:"", 
-      action:test
+      action:NavigateToNotification
     },
     {
       name:"", 

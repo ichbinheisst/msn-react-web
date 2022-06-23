@@ -7,11 +7,15 @@ import { searchContact } from '../../../../redux/reducers/searchNewContact';
 import ModalResult from './modalResult';
 import { closeResultModal } from '../../../../redux/reducers/searchNewContact';
  
-const SearchBar = () => {
+
+const SearchBar = ({sendContactRequest}) => {
  const [searchInput, setSearchInput] = React.useState('')
  const dispatch = useDispatch()
 
 const contact = useSelector((state)=> state.searchNewContact )
+const Mydata  = useSelector((state)=>state.login.user.data)
+
+ console.log(Mydata)
  console.log(contact.data && contact.data)
 
       const handleSearch= (event)=>{
@@ -67,7 +71,7 @@ const contact = useSelector((state)=> state.searchNewContact )
         alignItems:"center", 
         width:"100vw",
         justifyContent:"center"}}> 
-        <ModalResult state = {contact.modal} user={contact.data} close={closeModal}/>
+        <ModalResult state = {contact.modal} user={contact.data} close={closeModal} sendContactRequest={sendContactRequest} Mydata={Mydata}/>
         </div>
 
 
