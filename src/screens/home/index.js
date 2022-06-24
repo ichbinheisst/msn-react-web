@@ -45,10 +45,10 @@ const Home = () => {
       dispatch(getContacts(token.data.token, token.data.userId));
     }
 
-    // console.log(token.data)
+  
   }, []);
 
-  // console.log(user)
+
 
   React.useEffect(() => {
     setTimeout(() => {
@@ -73,16 +73,23 @@ const Home = () => {
   }, [UserContacts]);
 
   React.useEffect(() => {
-    if (message?.type === "message") {
+    if (message?.type === "message" ||message?.type =='image' ) {
       audio.play();
       setMessages([...messages, message]);
     }
+
+
+
 
     if (message?.type === "alert") {
       let alertaudio = new Audio(alertAudio).play();
       setMessages([...messages, message]);
     }
   }, [message]);
+
+
+
+
 
   React.useEffect(() => {
     if (Array.isArray(UserContacts)) {
@@ -178,11 +185,11 @@ const Home = () => {
   }
 
   function sendContactRequest(data) {
-    console.log("send notification");
+ 
 
     // const { email,sendID,senderEmail,senderPicture,senderToken} = data
     Socket.emit("notification_client_to_server", data, function (res) {
-      console.log("messages has been sent sucessfully");
+    
     });
   }
 

@@ -22,6 +22,8 @@ const Header = ({ user, newUserOnline, contacts, message, sendContactRequest }) 
     }, [6000]);
   }
 
+
+
   React.useEffect(() => {
     if (newUserOnline?.status === "online") {
       if (!newUserOnlineModal) {

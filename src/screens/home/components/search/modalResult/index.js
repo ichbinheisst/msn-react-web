@@ -3,7 +3,7 @@ import styles  from './modalStyles.module.css'
 import avatar from '../../../../../assets/avatar.jpeg'
  export default function ModalResult({state, user, close, sendContactRequest,Mydata}){
 
- console.log(user)
+ 
 /*
 function sendContactRequest(data){
   const { email,senderID,senderEmail,senderPicture,senderToken} = data

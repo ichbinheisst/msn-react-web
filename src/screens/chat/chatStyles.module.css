@@ -2,11 +2,11 @@
    /*;*/
     font-size: 12px;
     margin-left: 1px;
-    opacity: 0;
+
  
   
     overflow:hidden;
-    animation: showUp 1s ease-in-out forwards;
+
    
     
 
@@ -97,7 +97,7 @@
     overflow: scroll;
     cursor: pointer;
     height: 50px;
-    width: 80%;
+    width: 70%;
     
 
 }

@@ -57,7 +57,7 @@ const {
 export const getNotificationReceived = (token, userId) => async dispacth => {
   try {
     startfetchNotificationReceived();
-    const response = await fetch ('https://msnbr.herokuapp.com/user/Notifications/Received', {
+    const response = await fetch ('http://localhost:4444/user/Notifications/Received', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -82,7 +82,7 @@ export const getNotificationReceived = (token, userId) => async dispacth => {
 export const getNotificationSent= (token, userId) => async dispacth => {
     try {
         startfetchNotificationSent();
-      const response = await fetch ('http://localhost:4444/user/Notifications/Sent', {
+      const response = await fetch ('  https://msnbr.herokuapp.com/user/Notifications/Sent', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

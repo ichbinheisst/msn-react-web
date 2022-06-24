@@ -17,6 +17,7 @@ export function connectSocket(
       const userId = user.data._id;
       const authToken = token.data.token;
       const socketIo = io("https://msnbr.herokuapp.com/", {
+        //https://msnbr.herokuapp.com/
         auth: {
           token: authToken,
           userId: userId,
@@ -39,13 +40,19 @@ export function connectSocket(
         () => {}
       );
 
+      socketIo.on(user.data.email + "Image", (file) => {
+        console.log("IMAGE");
+        console.log(file);
+      });
+
       socketIo.on("messageReceivedOffline", (data, callback) => {
         // window.localStorage.setItem("messages",JSON.stringify([...messages, ...data]))
-      
-       
-       
+        console.log("messages from the backend- MESSAGE OFFILE");
+        console.log(data);
+
+        if (Array.isArray(data) && data.length) {
           setMessages([...messages, ...data]);
-     
+        }
 
         callback();
       });
@@ -56,8 +63,12 @@ export function connectSocket(
       socketIo.on(user.data.email, (response) => {
         if (response) {
           setMessage(response);
-          if (response.type === "message") {
-            console.log("I can")
+          console.log("IMAGE");
+
+          console.log(response);
+
+          if (response.type === "image") {
+            console.log("this is an image to be rendered");
           }
         }
       });
@@ -66,13 +77,9 @@ export function connectSocket(
         setNewUserOnline(params);
       });
 
-    socketIo.on("notification"+user.data.email,(params)=>{
-
-       console.log('NOTIFICATION HAS ARRIVED' + params)
-
-    })
-
-
+      socketIo.on("notification" + user.data.email, (params) => {
+        console.log("NOTIFICATION HAS ARRIVED" + params);
+      });
 
       return socketIo;
     });

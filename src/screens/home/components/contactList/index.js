@@ -49,9 +49,7 @@ const ContactList = ({
     }
   }, [contacts]);
 
-  React.useEffect(() => {
-    console.log("nova message");
-  }, [unViewedMessages]);
+  
 
   function viewMessage(data) {
     if (unViewedMessages.length) {
@@ -62,23 +60,26 @@ const ContactList = ({
     }
   }
 
+
+
+
   function classifyMessage(email) {
     if (!messages.length) {
       return "transparent";
     }
     let lastIndexMessage = messages[messages.length - 1];
-    console.log(lastIndexMessage);
+   
 
     if (lastIndexMessage.type == "alert" && lastIndexMessage.email == email) {
-      console.log("vermelho");
+       
 
       return "#FF3F00";
     }
 
-    console.log("blue");
+   
     return "#0D94FF";
   }
-  console.log(contacts);
+  
 
 
 

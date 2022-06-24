@@ -41,7 +41,7 @@ const navigate =useNavigate();
   ]);
   const {user}= useSelector (state => state.login);
 
-    console.log(user)
+ 
 
   const [checkBox, setCheckBox] = useState ('');
   const [checkBoxAlternative, setCheckBoxAlternative] = useState ([{}]);
@@ -76,7 +76,6 @@ const navigate =useNavigate();
 
 
     if(data){
-        console.log(data)
       navigate('/home')
     }
       
@@ -94,7 +93,7 @@ const navigate =useNavigate();
     <div
      className={styles.loginBody}
     >
-      <form className={styles.LoginForm} >
+      <form className={styles.LoginForm}  onSubmit={handleLogin}>
         <button className={styles.QuestionButton}>
           ?{' '}
         </button>

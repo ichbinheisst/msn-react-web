@@ -15,8 +15,7 @@ const SearchBar = ({sendContactRequest}) => {
 const contact = useSelector((state)=> state.searchNewContact )
 const Mydata  = useSelector((state)=>state.login.user.data)
 
- console.log(Mydata)
- console.log(contact.data && contact.data)
+ 
 
       const handleSearch= (event)=>{
         event.preventDefault()
