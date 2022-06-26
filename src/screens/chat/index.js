@@ -8,6 +8,7 @@ import alertAudio from "../../assets/audios/aten.mp3";
 import NewUserOnlineAudio from "../../assets/audios/new.mp3";
 import { useSpring, animated } from "react-spring";
 import { MessageText, MessageImage } from "./components/messageBody";
+import LoadingBar from "./components/loadingBar";
 const Chat = ({
   data,
   messages,
@@ -23,12 +24,14 @@ const Chat = ({
 }) => {
   const header = ["Fotos", "Arquivos", "videos", "chamadas"];
   const test = [1, 2, 3, 4, 5];
+
   const [message, setMessage] = React.useState({});
   const [messageInput, setMessageInput] = React.useState("");
   const [filterMessage, setFilterMessage] = React.useState([]);
   const [UserStatus, setUserStatus] = React.useState();
   const [animating, setAnimating] = React.useState(false);
   const [file, setFile] = React.useState();
+  const [loadingFile, setLoadingFile] = React.useState(false);
 
   function Typing(status) {
     socket.emit("typing", {
@@ -36,7 +39,6 @@ const Chat = ({
       email: user.email,
       sender: user.name,
       status: status,
-
     });
   }
 
@@ -44,6 +46,7 @@ const Chat = ({
 
   function DisplayMessage(message, user, index) {
     if (message.type === "image") {
+    
       return MessageImage(message, user, index);
     }
     return MessageText(message, user, index);
@@ -95,32 +98,32 @@ const Chat = ({
 
   React.useEffect(() => {
     // filter the message that belong the user to be displayed in each user
-    if (messages) {
+
+    if (messages.length) {
       let novo = messages.filter((el) => {
         let x = el.email === data.email || el.room === data.email;
         return x;
       });
+
       setFilterMessage(novo);
     }
     return () => {};
   }, [messages, data]);
 
- 
-
+  console.log("Filtered:" + filterMessage.length);
+  console.log("Messages:" + messages.length);
 
   React.useEffect(() => {
     socket.emit("checkUserOnline_client", { room: data.email });
     socket.on("checkUserOnline_server", (params) => {
       if (params.contact === data.email) {
-  
-
         setUserStatus(params.status);
       }
     });
   }, [data, newUserOnline]);
 
   React.useEffect(() => {
-    if (message) {
+    if (message.message) {
       UpdateMessages(message);
     }
   }, [message]);
@@ -130,10 +133,9 @@ const Chat = ({
     if (!messageInput.trim()) {
       return;
     }
-       
- 
-    if (file) { 
-     
+
+    // setLoadingFile(true)
+    if (file) {
       socket.emit(
         "createMsg",
         {
@@ -141,23 +143,24 @@ const Chat = ({
           sender: user.name,
           email: user.email,
           room: data.email,
-          message: file,
+          message: "send a message",
           mimeType: file.type,
-          file:file,
+          file: file,
           fileName: file.name,
-          size:file.size,
+          size: file.size,
           time: "22:00",
           type: "image",
         },
         function (res) {
           setMessage(res);
-        
+          // setLoadingFile(false)
+          setFile();
         }
       );
 
       // setMessages ([...messages, msg]);
       setMessageInput("");
-      setFile()
+
       return;
     }
 
@@ -174,13 +177,15 @@ const Chat = ({
       },
       function (res) {
         setMessage(res);
-        
+        //setFile();
+        //setLoadingFile(false)
       }
     );
 
     // setMessages ([...messages, msg]);
     setMessageInput("");
-    return 
+
+    return;
   }
 
   function CallAttention() {
@@ -202,18 +207,18 @@ const Chat = ({
       },
       //
       function (res) {
-
         setMessage(res);
-     
+
         new Audio(alertAudio).play();
         setAnimating(true);
         setTimeout(() => {
           setAnimating(false);
         }, 1000);
-
       }
     );
   }
+
+  //   <LoadingBar />
   //	😀
   return (
     <div
@@ -255,6 +260,22 @@ const Chat = ({
         </button>
       </header>
 
+      {loadingFile && (
+        <div
+          style={{
+            alignSelf: "center",
+            left: "20%",
+            position: "absolute",
+            top: isMobile ? "90px" : "-20px",
+          }}
+        >
+       
+        </div>
+      )}
+
+      <div
+        style={{ alignSelf: "center", left: "20%", position: "absolute" }}
+      ></div>
       <div className={isMobile ? styles.chatMain : styles.chatMainDeskTop}>
         <div className={styles.messages} style={{ width: "100%" }}>
           {filterMessage.map((element, index) =>
@@ -266,6 +287,9 @@ const Chat = ({
         style={{
           paddingInline: "20px",
           height: "20px",
+          fontWeight: "bolder",
+          fontFamily: "cursive",
+          color: "#009FFF",
         }}
       >
         {typing.email === data.email &&
@@ -282,7 +306,8 @@ const Chat = ({
         CallAttention={CallAttention}
         file={file}
         setFile={setFile}
-
+        loadingFile={loadingFile}
+        setLoadingFile={setLoadingFile}
       />
     </div>
   );

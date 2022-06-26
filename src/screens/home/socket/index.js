@@ -40,17 +40,10 @@ export function connectSocket(
         () => {}
       );
 
-      socketIo.on(user.data.email + "Image", (file) => {
-        console.log("IMAGE");
-        console.log(file);
-      });
-
       socketIo.on("messageReceivedOffline", (data, callback) => {
         // window.localStorage.setItem("messages",JSON.stringify([...messages, ...data]))
-        console.log("messages from the backend- MESSAGE OFFILE");
-        console.log(data);
 
-        if (Array.isArray(data) && data.length) {
+        if (!Array.isArray(data) && data.length) {
           setMessages([...messages, ...data]);
         }
 
@@ -62,11 +55,9 @@ export function connectSocket(
       });
       socketIo.on(user.data.email, (response) => {
         if (response) {
-          setMessage(response);
-          console.log("IMAGE");
-
-          console.log(response);
-
+          if (response) {
+            setMessage(response);
+          }
           if (response.type === "image") {
             console.log("this is an image to be rendered");
           }

@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "../../chatStyles.module.css";
-import imageTest from '../../../../assets/meme.jpeg'
+import imageTest from "../../../../assets/meme.jpeg";
 import Image from "./image";
-import teste  from "../.././../../assets/w.png"
+import teste from "../.././../../assets/w.png";
 export function MessageText(message, user, index) {
   return (
     <div
@@ -45,17 +45,7 @@ export function MessageText(message, user, index) {
 }
 
 export function MessageImage(message, user, index) {
-  const isEmpty =Object.keys(message.message).length ==0 
-  
-   console.log('SIZEEEEEEEEEEEEEEEEEEEEEEEEEE', message.buffer)
-
-           
-
-     const blob = new Blob([message.file],{type:message.mimeType})
-
- console.log( blob)
-     
-
+  const blob = new Blob([message.file], { type: message.mimeType });
 
   return (
     <div
@@ -79,8 +69,8 @@ export function MessageImage(message, user, index) {
       >
         {message.sender} diz:
       </b>
-     <Image fileName={message.fileName}  blob={blob}/>
+      <Image fileName={message.fileName} blob={blob} />
     </div>
   );
 }
-// 
+//

@@ -1,0 +1,30 @@
+.barBox{
+  width: 200px;
+  height: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0.2px 0.2px 4px #0D94FF;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  margin-inline:10px;
+
+}
+.barProgress{
+    width: 0%;
+    height: 9px;
+    background-image: linear-gradient(to right,#fff,#0D94FF,#0D94FF );
+    
+    border-radius: 10px;
+    animation: loading 2s ease-in-out infinite;
+  
+}
+
+
+@keyframes loading {
+   to{
+    width: 99%;
+   }
+    
+}

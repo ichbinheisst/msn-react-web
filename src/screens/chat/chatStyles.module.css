@@ -60,7 +60,7 @@
 .chatMainDeskTop {
   display:flex;
   flex-direction:column;
-  height:52vh;
+  height:55vh;
   overflow: auto;
   flex-direction:column-reverse;
   background-image: url(../../assets/backChat.jpeg);
@@ -191,7 +191,7 @@
   }
   .headingChat{
          
-    min-height: 80px;
+    min-height: 50px;
   
 }
 }
