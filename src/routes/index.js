@@ -5,19 +5,23 @@ import Home from '../screens/home/index.js';
 import Notfound from '../screens/notFound/index.js';
 import Preload from '../screens/preload/index.js';
 import Notification from '../screens/notification/index.js';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import LoadingPage from '../screens/loadingPage/index.js';
 
 const Routers = () => {
   const user = useSelector (state => state.login.user.data);
+  
 
-     console.log(user)
+   
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Preload />} />
         {user && <Route path="/home" element={<Home />} />}
+        
         <Route path="/login" element={<Login />} />
+        
         <Route path="/notification" element={<Notification />} />
         <Route path="*" element={<Notfound />} />
       </Routes>

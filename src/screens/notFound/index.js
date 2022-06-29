@@ -1,6 +1,7 @@
 import React from 'react';
 import {autologin} from '../../redux/reducers/login';
 import {useDispatch} from 'react-redux';
+import LoadingPage from '../loadingPage';
 const Notfound = () => {
   const [state, setState] = React.useState ('loading');
 
@@ -17,14 +18,12 @@ const Notfound = () => {
   React.useEffect (() => {
     setTimeout (() => {
       setState ('not found');
-    }, 3000);
+    }, 5000);
     return () => {};
   }, []);
 
   return (
-    <div>
-      {state}
-    </div>
+   <LoadingPage/>
   );
 };
 export default Notfound;

@@ -1,0 +1,13 @@
+.containermessagetext {
+  display: flex;
+  flex-direction: column;
+  padding: 3px;
+  border-radius: 10px;
+  margin: 5px;
+  align-self: flex-end;
+  padding-left: 16px;
+  font-size: 14px;
+  padding-right: 5px;
+  max-width: fit-content;
+}
+

@@ -29,6 +29,7 @@ const Home = () => {
   const [userWhosentMessage, setUserWhosentMessage] = React.useState([]);
   const [newUserOnline, setNewUserOnline] = React.useState();
   const [isMobile, setMobile] = React.useState(false);
+  const [ChatWindow, setChatWindow] = React.useState([]);
 
   React.useEffect(() => {
     if (window.screen.width < 600) {
@@ -44,11 +45,9 @@ const Home = () => {
     if (token.data.token) {
       dispatch(getContacts(token.data.token, token.data.userId));
     }
-
-  
   }, []);
 
-
+  
 
   React.useEffect(() => {
     setTimeout(() => {
@@ -73,23 +72,16 @@ const Home = () => {
   }, [UserContacts]);
 
   React.useEffect(() => {
-    if (message?.type === "message" ||message?.type =='image' ) {
+    if (message?.type === "message" || message?.type == "image" || message.type== "gif") {
       audio.play();
       setMessages([...messages, message]);
     }
-
-
-
 
     if (message?.type === "alert") {
       let alertaudio = new Audio(alertAudio).play();
       setMessages([...messages, message]);
     }
   }, [message]);
-
-
-
-
 
   React.useEffect(() => {
     if (Array.isArray(UserContacts)) {
@@ -107,12 +99,38 @@ const Home = () => {
     );
   }, [messages]);
 
-  function handleChat(data) {
+  function handleChat(data, index) {
+    const checkOpenChat = ChatWindow.some((el) => {
+      return el.email == data.email;
+    });
+    if (ChatWindow.length >= 3) {
+      ChatWindow.shift();
+      if (checkOpenChat) {
+        return;
+      }
+
+      setChatWindow([...ChatWindow, data]);
+
+      return;
+    }
+
+    if (checkOpenChat) {
+      return;
+    }
+
     setOpenChat(true);
     setChatWith(data);
+
+    setChatWindow([...ChatWindow, data]);
   }
 
-  function closeChat() {
+  function closeChat(data) {
+    setChatWindow(() => {
+      const novo = ChatWindow.filter((element) => {
+        return element.email != data.email;
+      });
+      return novo;
+    });
     setOpenChat(false);
   }
 
@@ -166,34 +184,27 @@ const Home = () => {
       return {
         position: "relative",
         width: setMobileVersion() ? "100vw" : "30vw",
-   
         marginRight: isMobile ? "0" : "1%",
-      
-       
-        
       };
     }
     return {
       position: "absolute",
-      width: setMobileVersion() ? "100vw" : "360px",
-  
+      // width: setMobileVersion() ? "100vw" : "360px",
+
       marginRight: isMobile ? "0" : "1%",
       right: "5vw",
-      bottom:0, 
-      borderRadius:"8px"
+      bottom: 0,
+      borderRadius: "8px",
+      display: "flex",
+      flexDirection: "row",
     };
   }
 
   function sendContactRequest(data) {
- 
-
-    // const { email,sendID,senderEmail,senderPicture,senderToken} = data
-    Socket.emit("notification_client_to_server", data, function (res) {
-    
-    });
+    Socket.emit("notification_client_to_server", data, function (res) {});
   }
 
-  //1F600	😀
+  
   return (
     <div>
       <div style={{ width: "100vw", display: "flex" }}>
@@ -209,6 +220,7 @@ const Home = () => {
 
             <ToolBar />
             <SearchBar sendContactRequest={sendContactRequest} />
+
             <ContactList
               title={"Conectados"}
               status={true}
@@ -224,22 +236,26 @@ const Home = () => {
           </div>
         }
 
-        {openChat && (
+        {ChatWindow.length && (
           <div style={ChatMobileDesk(isMobile)}>
-            <Chat
-              socket={Socket}
-              data={chatwith}
-              closeChat={closeChat}
-              messages={messages}
-              changeChat={openChat}
-              user={user.data}
-              UpdateMessages={UpdateMessages}
-              typing={typing}
-              newUserOnline={newUserOnline}
-              unViewedMessages={userWhosentMessage}
-              setUnviewedMessaged={setUserWhosentMessage}
-              isMobile={isMobile}
-            />
+            {ChatWindow.map((element) => {
+              return (
+                <Chat
+                  socket={Socket}
+                  data={element}
+                  closeChat={closeChat}
+                  messages={messages}
+                  changeChat={openChat}
+                  user={user.data}
+                  UpdateMessages={UpdateMessages}
+                  typing={typing}
+                  newUserOnline={newUserOnline}
+                  unViewedMessages={userWhosentMessage}
+                  setUnviewedMessaged={setUserWhosentMessage}
+                  isMobile={isMobile}
+                />
+              );
+            })}
           </div>
         )}
       </div>

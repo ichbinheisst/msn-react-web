@@ -2,6 +2,7 @@ import React from "react";
 import style from "../../chatStyles.module.css";
 import buzz from "../../../../assets/buzz.png";
 import camera from "../../../../assets/camera.png";
+import styleForm from "./formstyles.module.css";
 export default function ChatForm({
   handleNewMessage,
   setMessageInput,
@@ -11,6 +12,7 @@ export default function ChatForm({
   CallAttention,
   file,
   setFile,
+  displayGIFModal,
 }) {
   const emojis = [
     "😀",
@@ -33,7 +35,7 @@ export default function ChatForm({
     if (file) {
       await setFile();
       setMessageInput("");
-      return 
+      return;
     }
     await setFile(e.target.files[0]);
 
@@ -42,7 +44,9 @@ export default function ChatForm({
 
   return (
     <div>
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div
+        style={{ display: "flex", flexDirection: "row", marginBottom: "4px" }}
+      >
         <div className={style.chatFormIconBox}>
           {emojis.map((emoj, index) => {
             return (
@@ -56,87 +60,46 @@ export default function ChatForm({
             );
           })}
         </div>
+        <button
+          className={style.gifButton}
+          style={{ color: "#fff" }}
+          onClick={displayGIFModal}
+        >
+          GIF
+        </button>
         <button className={style.buzzButton} onClick={CallAttention}>
           <img
             src={buzz}
             alt="pissOff"
-            style={{ width: "38px", alignSelf: "center" }}
+            className={styleForm.callattentionbuttonicon}
           />
         </button>
         {file ? (
-          <label
-            style={{
-              cursor: "pointer",
-              width: 50,
-              height: 42,
-              marginInline: "3px",
-              borderRadius: "5px",
-              display: "flex",
-              justifyContent: "center",
-              alignContent: "center",
-              alignItems: "center",
-              backgroundColor:"red", 
-
-            }}
+          <button
+            className={styleForm.filebuttoncancel}
+            onClick={(e) => selectFile(e)}
           >
-            <button
-              style={{ borderStyle: "none", backgroundColor: "transparent" , fontSize:"2rem", fontWeight:"bold", color:"#fff"}}
-              onClick={(e) => selectFile(e)}
-            >
             x
-            </button>
-          </label>
+          </button>
         ) : (
-          <label
-            style={{
-              cursor: "pointer",
-              width: 50,
-              height: 45,
-              marginInline: "3px",
-              borderRadius: "5px",
-              display: "flex",
-              justifyContent: "center",
-              alignContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <label className={styleForm.filebutton}>
             <input
               type="file"
               style={{ display: "none" }}
               onChange={(e) => selectFile(e)}
             />
-            <img src={camera} />
+            <img src={camera} style={{ width: "40px" }} />
           </label>
         )}
       </div>
-      <form
-        onSubmit={handleNewMessage}
-        style={{
-          display: "flex",
-          alignContent: "center",
-          height: "5vh",
-          minHeight: "50px",
-          backgroundColor: "#0D94FF ",
-          alignItems: "center",
-          paddingInline: "5px",
-          borderRadius: "8px",
-          paddingBottom: "2%",
-          overflow: "auto",
-        }}
-      >
+
+      <form onSubmit={handleNewMessage} className={styleForm.chatform}>
         <input
           onChange={(text) => {
             setMessageInput(text.target.value);
           }}
           value={messageInput}
-          style={{
-            width: "90vw",
-            height: "70%",
-            borderStyle: "none",
-            marginInline: "10px",
-            borderRadius: "8px",
-            paddingInline: "20px",
-          }}
+          className={styleForm.chatInput}
           name="message"
           type="text"
           placeholder="Message"
@@ -147,22 +110,12 @@ export default function ChatForm({
             Typing(true);
             viewMessage();
           }}
-
-          //autocomplete="off"
         />
         <button
           onClick={handleNewMessage}
-          style={{
-            borderStyle: "none",
-            height: !file ? "70%" : "94%",
-            borderRadius: file ? "100px" : "5px",
-            backgroundColor: file ? "#FFBF00" : "#fff",
-            color: file ? "#0D94FF" : "#0D94FF",
-            padding: "3px",
-            minWidth: "50px",
-            fontSize:file ? "2rem":"1rem", 
-            
-          }}
+          className={
+            file ? styleForm.sendimagebutton : styleForm.sendtextbutton
+          }
         >
           {file ? ">" : "enviar"}
         </button>

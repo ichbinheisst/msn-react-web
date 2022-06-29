@@ -1,0 +1,73 @@
+.chatform {
+  display: flex;
+  align-content: center;
+  height: 5vh;
+  min-height: 50px;
+  background-color: #0d94ff;
+  align-items: center;
+  padding-inline: 5px;
+  border-radius: 8px;
+  padding-bottom: 2%;
+  overflow: auto;
+}
+.chatInput {
+  width: 90vw;
+  height: 70%;
+  border-style: none;
+  margin-inline: 10px;
+  border-radius: 8px;
+  padding-inline: 20px;
+}
+.sendtextbutton {
+  border-style: none;
+  height: 70%;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #0d94ff;
+  padding: 3px;
+  min-width: 50px;
+  font-size: 1rem;
+}
+
+.sendimagebutton {
+  border-style: none;
+  height: 94%;
+  border-radius: 100px;
+  background-color: #ffbf00;
+  color: #0d94ff;
+  padding: 3px;
+  min-width: 50px;
+  font-size: 2rem;
+}
+.filebutton {
+  cursor: pointer;
+  width: 50px;
+  height: 45px;
+  margin-inline: 3px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+.filebuttoncancel {
+  cursor: pointer;
+  width: 40px;
+  height: 38px;
+  margin-inline: 3px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  background-color: red;
+  font-weight: bold;
+  font-size: 2rem;
+  color: #fff;
+  border-style: none;
+}
+.callattentionbuttonicon {
+  width: 28px;
+  align-self: center;
+  height: 28px;
+}

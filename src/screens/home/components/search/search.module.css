@@ -1,35 +1,46 @@
- .container{
-    display: flex;
-    padding-inline: 10px;
-    margin-block: 10px;
-    align-self: center;
-    justify-content: space-around,  
- }
- .searchContainer{
-    width: 95%;
-    display: flex;
-    border-radius: 6px;
-    align-items: center;
-    justify-content:center;
-    align-content: center;
-    padding: 2px; 
-    box-shadow: 0.1px 0.1px 8px rgb(139, 137, 137) ;
- }
- .searchInput{
-   width: 98%;
-   padding: 10px;
-   border: none;
-   background-color: transparent;
-   
-
- }
-
-.searchButton{
-   border: none;
-   background-color: transparent;
+.container {
+  display: flex;
+  padding-inline: 10px;
+  margin-block: 10px;
+  align-self: center;
+  justify-content: space-around;
+}
+.searchContainer {
+  width: 95%;
+  display: flex;
+  border-radius: 6px;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  padding: 2px;
+  box-shadow: 0.1px 0.2px 2px rgb(139, 137, 137);
+}
+.searchInput {
+  width: 98%;
+  padding: 10px;
+  border: none;
+  background-color: transparent;
 }
 
-.addUserButton{
-   border:none;
-   background-color: transparent;
+.searchButton {
+  border: none;
+  background-color: transparent;
+}
+
+.addUserButton {
+  border: none;
+  background-color: transparent;
+}
+
+.icon {
+  width: 22px;
+  height: 20px;
+}
+
+.modalcontainer {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  width: 100vw;
+  justify-content: center;
 }

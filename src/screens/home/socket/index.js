@@ -16,7 +16,7 @@ export function connectSocket(
     setSocket(() => {
       const userId = user.data._id;
       const authToken = token.data.token;
-      const socketIo = io("https://msnbr.herokuapp.com/", {
+      const socketIo = io("http://localhost:4000/", {
         //https://msnbr.herokuapp.com/
         auth: {
           token: authToken,
@@ -42,8 +42,8 @@ export function connectSocket(
 
       socketIo.on("messageReceivedOffline", (data, callback) => {
         // window.localStorage.setItem("messages",JSON.stringify([...messages, ...data]))
-
-        if (!Array.isArray(data) && data.length) {
+      
+        if (data) {
           setMessages([...messages, ...data]);
         }
 

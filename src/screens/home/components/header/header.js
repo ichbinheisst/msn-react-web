@@ -55,7 +55,7 @@ const Header = ({ user, newUserOnline, contacts, message, sendContactRequest }) 
     ],
     from: { marginLeft: "5px" },
   });
-
+// I can make a loop here 
   React.useEffect(() => {
     if (message?.type === "alert") {
       setAnimating(true);

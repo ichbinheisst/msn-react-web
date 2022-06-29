@@ -7,7 +7,12 @@ import messageAudio from "../../assets/audios/MS.mp3";
 import alertAudio from "../../assets/audios/aten.mp3";
 import NewUserOnlineAudio from "../../assets/audios/new.mp3";
 import { useSpring, animated } from "react-spring";
-import { MessageText, MessageImage } from "./components/messageBody";
+import ModalGIF from "./components/modalGif";
+import {
+  MessageText,
+  MessageImage,
+  MessageNativeGif,
+} from "./components/messageBody";
 import LoadingBar from "./components/loadingBar";
 const Chat = ({
   data,
@@ -22,9 +27,6 @@ const Chat = ({
   setUnviewedMessaged,
   isMobile,
 }) => {
-  const header = ["Fotos", "Arquivos", "videos", "chamadas"];
-  const test = [1, 2, 3, 4, 5];
-
   const [message, setMessage] = React.useState({});
   const [messageInput, setMessageInput] = React.useState("");
   const [filterMessage, setFilterMessage] = React.useState([]);
@@ -32,6 +34,7 @@ const Chat = ({
   const [animating, setAnimating] = React.useState(false);
   const [file, setFile] = React.useState();
   const [loadingFile, setLoadingFile] = React.useState(false);
+  const [showGifOptions, setShowGifOptions] = React.useState(false);
 
   function Typing(status) {
     socket.emit("typing", {
@@ -42,12 +45,12 @@ const Chat = ({
     });
   }
 
-  // change colorback
-
   function DisplayMessage(message, user, index) {
     if (message.type === "image") {
-    
       return MessageImage(message, user, index);
+    }
+    if (message.type === "gif") {
+      return MessageNativeGif(message, user, index);
     }
     return MessageText(message, user, index);
   }
@@ -97,8 +100,6 @@ const Chat = ({
   }, []);
 
   React.useEffect(() => {
-    // filter the message that belong the user to be displayed in each user
-
     if (messages.length) {
       let novo = messages.filter((el) => {
         let x = el.email === data.email || el.room === data.email;
@@ -109,9 +110,6 @@ const Chat = ({
     }
     return () => {};
   }, [messages, data]);
-
-  console.log("Filtered:" + filterMessage.length);
-  console.log("Messages:" + messages.length);
 
   React.useEffect(() => {
     socket.emit("checkUserOnline_client", { room: data.email });
@@ -131,11 +129,13 @@ const Chat = ({
   function handleNewMessage(event) {
     event.preventDefault();
     if (!messageInput.trim()) {
+      alert("missing argument");
       return;
     }
 
-    // setLoadingFile(true)
+    setLoadingFile(true);
     if (file) {
+      setFile();
       socket.emit(
         "createMsg",
         {
@@ -153,7 +153,7 @@ const Chat = ({
         },
         function (res) {
           setMessage(res);
-          // setLoadingFile(false)
+          setLoadingFile(false);
           setFile();
         }
       );
@@ -178,7 +178,7 @@ const Chat = ({
       function (res) {
         setMessage(res);
         //setFile();
-        //setLoadingFile(false)
+        setLoadingFile(false);
       }
     );
 
@@ -218,58 +218,67 @@ const Chat = ({
     );
   }
 
-  //   <LoadingBar />
-  //	😀
+  function sendGifMessage(index) {
+    socket.emit(
+      "createMsg",
+      {
+        senderID: user._id,
+        sender: user.name,
+        email: user.email,
+        room: data.email,
+        message: String(index),
+        time: "22:00",
+        type: "gif",
+      },
+      function (res) {
+        setMessage(res);
+        //setFile();
+        setLoadingFile(false);
+      }
+    );
+  }
+
+  function displayGIFModal() {
+    setShowGifOptions(!showGifOptions);
+  }
   return (
     <div
       className={styles.container}
       style={{ borderRadius: isMobile ? "0px" : "8px" }}
     >
-      <header className={styles.headingChat}>
-        <animated.div style={animating ? styling : {}}>
-          <div className={styles.avatarContainer}>
-            <img
-              src={data.thumbnail ? data.thumbnail : picture}
-              alt="avatar"
-              className={styles.avatar}
-              style={{ opacity: !UserStatus ? "0.4" : "1" }}
-            />
-          </div>
-        </animated.div>
-
-        <div>
-          {data.name} - teste
-          <br />
-          {data.email}
-        </div>
-        <button
-          onClick={closeChat}
-          style={{
-            position: "absolute",
-            right: 10,
-            top: 10,
-            paddingInline: 10,
-            borderStyle: "none",
-            fontSize: "12pt",
-            backgroundColor: "#FF3F00",
-            color: "#fff",
-            borderRadius: "20%",
-          }}
-        >
+      <div>
+        <button onClick={() => closeChat(data)} className={styles.closeButton}>
           x
         </button>
-      </header>
+
+        <header className={styles.headingChat}>
+          <animated.div style={animating ? styling : {}}>
+            <div className={styles.avatarContainer}>
+              <img
+                src={data.thumbnail ? data.thumbnail : picture}
+                alt="avatar"
+                className={styles.avatar}
+                style={{ opacity: !UserStatus ? "0.4" : "1" }}
+              />
+            </div>
+          </animated.div>
+
+          <div>
+            {data.name} - teste
+            <br />
+            {data.email}
+          </div>
+        </header>
+      </div>
 
       {loadingFile && (
         <div
+          className={styles.oadingfilecontainer}
           style={{
-            alignSelf: "center",
-            left: "20%",
-            position: "absolute",
             top: isMobile ? "90px" : "-20px",
           }}
         >
-       
+          <LoadingBar />
         </div>
       )}
 
@@ -283,20 +292,17 @@ const Chat = ({
           )}
         </div>
       </div>
-      <div
-        style={{
-          paddingInline: "20px",
-          height: "20px",
-          fontWeight: "bolder",
-          fontFamily: "cursive",
-          color: "#009FFF",
-        }}
-      >
+
+      <div className={styles.typingcontainer}>
         {typing.email === data.email &&
           typing.status &&
           data.name + " Typing..."}
       </div>
-
+      {showGifOptions && (
+        <div className={styles.giftmodalcontainer}>
+          <ModalGIF sendGifMessage={sendGifMessage} />
+        </div>
+      )}
       <ChatForm
         handleNewMessage={handleNewMessage}
         setMessageInput={setMessageInput}
@@ -308,6 +314,7 @@ const Chat = ({
         setFile={setFile}
         loadingFile={loadingFile}
         setLoadingFile={setLoadingFile}
+        displayGIFModal={displayGIFModal}
       />
     </div>
   );
